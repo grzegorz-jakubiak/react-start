@@ -1,6 +1,9 @@
+'use strict'
+
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 const htmlPlugin = new HtmlWebpackPlugin({
   inject: true,
@@ -14,6 +17,7 @@ const importReact = new webpack.ProvidePlugin({
 })
 
 const config = {
+  mode: process.env.NODE_ENV || 'development',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -48,6 +52,23 @@ const config = {
     htmlPlugin,
     importReact
   ]
+}
+
+if (process.env.NODE_ENV === 'development') {
+  config.module.rules.push({
+    test: /\.css$/,
+    use: ['style-loader','css-loader']
+  })
+} else {
+  config.module.rules.push({
+    test: /\.css$/,
+    use: [
+      MiniCssExtractPlugin.loader,
+      'css-loader'
+    ]
+  })
+
+  config.plugins.push(new MiniCssExtractPlugin({ filename:'src/style.css' }))
 }
 
 module.exports = config

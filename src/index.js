@@ -1,5 +1,7 @@
 'use strict'
 
+import './test.css'
+
 const Index = () => {
   return <div>Hello React!</div>
 }
