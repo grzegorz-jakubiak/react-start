@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
 const htmlPlugin = new HtmlWebpackPlugin({
   inject: true,
@@ -7,22 +8,30 @@ const htmlPlugin = new HtmlWebpackPlugin({
   filename: './index.html'
 })
 
+const importReact = new webpack.ProvidePlugin({
+  'React': 'react',
+  'ReactDOM': 'react-dom'
+})
+
 const config = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'script.js'
+    filename: 'src/script.js'
   },
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.(js|jsx)?$/,
-      //   exclude: /node_modules/,
-      //   use: {
-      //     loader: 'standard-loader'
-      //   }
-      // },
+      {
+        enforce: 'pre',
+        test: /\.(js|jsx)?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'standard-loader',
+          options: {
+            parser: 'babel-eslint'
+          }
+        }
+      },
       {
         test: /\.(js|jsx)?$/,
         exclude: /node_modules/,
@@ -35,7 +44,10 @@ const config = {
       }
     ]
   },
-  plugins: [htmlPlugin]
+  plugins: [
+    htmlPlugin,
+    importReact
+  ]
 }
 
 module.exports = config

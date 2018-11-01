@@ -7,12 +7,19 @@
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   },
-  "author": "",
+  "standard": {
+    "globals": [
+      "React",
+      "ReactDOM"
+    ]
+  },
+  "author": "Grzegorz Jakubiak",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "html-webpack-plugin": "^3.2.0",
     "standard-loader": "^6.0.1",
