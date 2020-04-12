@@ -1,5 +1,5 @@
-'use strict'
-
+import React from 'react'
+import ReactDOM from 'react-dom'
 import './test.css'
 
 const Index = () => {
